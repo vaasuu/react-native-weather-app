@@ -1,12 +1,18 @@
-import { Text } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
-const Header = () => (
-  <Text
-    style={{
-      fontSize: 30,
-      fontWeight: "bold",
-    }}
-  ></Text>
-);
+const Header = ({ cityName }) => {
+  return (
+    <View>
+      <Text style={styles.header}>{cityName}</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  header: {
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+});
 
 export default Header;

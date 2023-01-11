@@ -34,7 +34,9 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, flexDirection: "column" }}>
+    <SafeAreaView
+      style={{ flex: 1, flexDirection: "column", backgroundColor: "lightgray" }}
+    >
       {weatherJson && (
         <>
           <Header cityName={weatherJson?.name} style={{ flex: 1 }} />

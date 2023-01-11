@@ -1,10 +1,10 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 
 const Header = ({ cityName }) => {
   return (
-    <View>
+    <>
       <Text style={styles.header}>{cityName}</Text>
-    </View>
+    </>
   );
 };
 
@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     fontWeight: "bold",
+    padding: 10,
   },
 });
 

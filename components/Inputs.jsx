@@ -1,8 +1,7 @@
 import { React, useState } from "react";
 import { TextInput, View, StyleSheet, Button } from "react-native";
-import ErrorThing from "./ErrorThing";
 
-const Inputs = ({ fetchWeatherHandler, error }) => {
+const Inputs = ({ fetchWeatherHandler }) => {
   const [location, setLocation] = useState("");
   const [apikey, setApikey] = useState("");
   return (
@@ -19,11 +18,10 @@ const Inputs = ({ fetchWeatherHandler, error }) => {
         onChangeText={(text) => setApikey(text)}
       />
       <Button
+        style={styles.button}
         title="Get Weather"
         onPress={() => fetchWeatherHandler(location, apikey)}
       />
-
-      {error && <ErrorThing error={error} />}
     </View>
   );
 };
@@ -33,7 +31,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     padding: 10,
-    marginVertical: 10,
+    margin: 10,
+  },
+  button: {
+    margin: 10,
   },
 });
 

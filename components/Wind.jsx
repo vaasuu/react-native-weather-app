@@ -26,7 +26,7 @@ const Wind = ({ speed, direction }) => {
       <View style={styles.container}>
         <Text style={styles.text}>Wind speed: {speed} m/s</Text>
         <Text style={styles.text}>Wind direction: {direction} °</Text>
-        <Text style={styles.windDirectionIcon}>↑</Text>
+        <Text style={styles.windDirectionIcon}>↓</Text>
       </View>
     </>
   );

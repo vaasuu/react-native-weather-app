@@ -48,10 +48,6 @@ const CurrentWeatherScreen = ({ navigation }) => {
       <View style={{ flex: 1 }}>
         <Inputs fetchWeatherHandler={fetchWeatherHandler} />
       </View>
-      <Button
-        title="Show Forecast"
-        onPress={() => navigation.navigate("Forecast")}
-      />
     </SafeAreaView>
   );
 };

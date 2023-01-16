@@ -4,10 +4,6 @@ const WeatherForecastScreen = ({ navigation }) => {
   return (
     <View>
       <Text>Weather Forecast Screen</Text>
-      <Button
-        title="Open Settings"
-        onPress={() => navigation.navigate("Settings")}
-      />
     </View>
   );
 };

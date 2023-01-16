@@ -4,7 +4,7 @@ const WeatherIcon = ({ iconCode }) => {
   return (
     <>
       <Image
-        source={`https://openweathermap.org/img/wn/${iconCode}@2x.png`}
+        source={{ uri: `https://openweathermap.org/img/wn/${iconCode}@2x.png` }}
         style={styles.WeatherIcon}
       />
     </>

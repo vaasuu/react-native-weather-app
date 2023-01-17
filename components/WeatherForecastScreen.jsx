@@ -1,19 +1,34 @@
 import { useEffect, useState } from "react";
-import { View, Text, Button, FlatList, StyleSheet } from "react-native";
+import { View, Text, Button, FlatList, StyleSheet, Alert } from "react-native";
 import WeatherListItem from "./WeatherListItem";
 
 const API_KEY = "KEY_HERE";
 const URL = `https://api.openweathermap.org/data/2.5/forecast?q=Tampere&appid=${API_KEY}&units=metric`;
 
-
 const WeatherForecastScreen = ({ navigation }) => {
+  const [error, setError] = useState(null);
   const [weatherJson, setWeatherJson] = useState(null);
 
   const fetchWeather = async () => {
     const response = await fetch(URL);
     const json = await response.json();
-    setWeatherJson(json);
-    console.log(json);
+    if (response.ok) {
+      setError(null);
+      console.log(json);
+      setWeatherJson(json);
+    } else {
+      setError(
+        "Error fetching weather! " +
+          "HTTP status code:" +
+          response.status +
+          " " +
+          response.statusText +
+          " " +
+          json.message
+      );
+
+      Alert.alert("Error fetching weather!", json.message, [{ text: "OK" }]);
+    }
   };
 
   const formatDate = (unixTimestamp) => {

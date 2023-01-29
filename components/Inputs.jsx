@@ -1,7 +1,10 @@
 import { React, useState } from "react";
 import { TextInput, View, StyleSheet, Button } from "react-native";
 
-const Inputs = ({ fetchWeatherHandler }) => {
+const Inputs = ({
+  fetchWeatherHandler,
+  fetchWeatherCurrentLocationHandler,
+}) => {
   const [location, setLocation] = useState("");
   const [apikey, setApikey] = useState("");
   return (
@@ -19,8 +22,13 @@ const Inputs = ({ fetchWeatherHandler }) => {
       />
       <Button
         style={styles.button}
-        title="Get Weather"
+        title="Get Weather for location"
         onPress={() => fetchWeatherHandler(location, apikey)}
+      />
+      <Button
+        style={styles.button}
+        title="Get Weather for current location"
+        onPress={() => fetchWeatherCurrentLocationHandler(apikey)}
       />
     </View>
   );

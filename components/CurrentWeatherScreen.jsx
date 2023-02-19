@@ -78,6 +78,15 @@ const CurrentWeatherScreen = () => {
     }
   };
 
+  // Update weather view when city, apikey or units change
+  useEffect(() => {
+    if (city) {
+      fetchWeatherByCityHandler(city);
+    } else {
+      weatherJson && setWeatherJson(null);
+    }
+  }, [apikey, units, city]);
+
   return (
     <SafeAreaView style={styles.container}>
       {loading && <ActivityIndicator size="large" style={styles.loading} />}

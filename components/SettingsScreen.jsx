@@ -13,7 +13,7 @@ const SettingsScreen = () => {
   return (
     <View>
       <Text style={styles.title}>Settings Screen</Text>
-      <Text style={styles.text}>Open Weather Map API Key</Text>
+      <Text style={styles.text}>OpenWeatherMap API Key</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter your OpenWeatherMap API key"

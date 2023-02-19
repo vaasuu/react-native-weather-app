@@ -11,9 +11,6 @@ import {
 import WeatherListItem from "./WeatherListItem";
 import myDataContext from "../MyDataContext";
 
-const API_KEY = "KEY_HERE";
-const URL = `https://api.openweathermap.org/data/2.5/forecast?q=Tampere&appid=${API_KEY}&units=metric`;
-
 const WeatherForecastScreen = () => {
   const { apikey, units, city } = useContext(myDataContext);
   const [error, setError] = useState(null);

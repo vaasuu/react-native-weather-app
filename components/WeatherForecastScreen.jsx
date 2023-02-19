@@ -1,5 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text, Button, FlatList, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  FlatList,
+  StyleSheet,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import WeatherListItem from "./WeatherListItem";
 import myDataContext from "../MyDataContext";
 
@@ -10,8 +18,10 @@ const WeatherForecastScreen = () => {
   const { apikey, units, city } = useContext(myDataContext);
   const [error, setError] = useState(null);
   const [weatherJson, setWeatherJson] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchWeather = async () => {
+    setLoading(true);
     const URL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apikey}&units=${units}`;
     const response = await fetch(URL);
     const json = await response.json();
@@ -19,7 +29,9 @@ const WeatherForecastScreen = () => {
       setError(null);
       console.log(json);
       setWeatherJson(json);
+      setLoading(false);
     } else {
+      setLoading(false);
       setError(
         "Error fetching weather! " +
           "HTTP status code:" +
@@ -51,6 +63,7 @@ const WeatherForecastScreen = () => {
 
   return (
     <View>
+      {loading && <ActivityIndicator size="large" style={styles.loading} />}
       <Text style={styles.cityHeader}>{weatherJson?.city?.name}</Text>
       {weatherJson && (
         <FlatList
@@ -78,5 +91,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 10,
     paddingHorizontal: 10,
+  },
+  loading: {
+    flex: 1,
   },
 });

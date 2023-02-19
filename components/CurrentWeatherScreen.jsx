@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   SafeAreaView,
@@ -6,6 +6,7 @@ import {
   Button,
   Text,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import WeatherInfo from "./WeatherInfo";
 import Header from "./Header";
@@ -17,6 +18,7 @@ const CurrentWeatherScreen = () => {
   const [error, setError] = useState(null);
   const [weatherJson, setWeatherJson] = useState(null);
   const { apikey, units, city } = React.useContext(myDataContext);
+  const [loading, setLoading] = useState(false);
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -30,6 +32,8 @@ const CurrentWeatherScreen = () => {
   };
 
   const fetchWeatherCurrentLocationHandler = async () => {
+    // start loading indicator
+    setLoading(true);
     // Get current location
     const location = await getLocation();
     const lat = location.coords.latitude;
@@ -45,6 +49,9 @@ const CurrentWeatherScreen = () => {
   };
 
   const fetchWeatherHandler = async (url, apikey) => {
+    // start loading indicator
+    setLoading(true);
+
     console.log(url);
     const response = await fetch(url);
     const json = await response.json();
@@ -52,7 +59,11 @@ const CurrentWeatherScreen = () => {
       setError(null);
       console.log(json);
       setWeatherJson(json);
+
+      // stop loading indicator
+      setLoading(false);
     } else {
+      setLoading(false);
       setError(
         "Error fetching weather! " +
           "HTTP status code:" +
@@ -68,9 +79,8 @@ const CurrentWeatherScreen = () => {
   };
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, flexDirection: "column", backgroundColor: "lightgray" }}
-    >
+    <SafeAreaView style={styles.container}>
+      {loading && <ActivityIndicator size="large" style={styles.loading} />}
       {weatherJson && (
         <>
           <Header cityName={weatherJson?.name} style={{ flex: 1 }} />
@@ -98,6 +108,9 @@ const CurrentWeatherScreen = () => {
 const styles = StyleSheet.create({
   button: {
     margin: 10,
+  },
+  loading: {
+    flex: 1,
   },
 });
 

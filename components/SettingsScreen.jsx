@@ -25,8 +25,8 @@ const SettingsScreen = () => {
         selectedValue={enteredUnits}
         onValueChange={(unit) => setEnteredUnits(unit)}
       >
-        <Picker.Item label="Celsius" value="metric" />
-        <Picker.Item label="Fahrenheit" value="imperial" />
+        <Picker.Item label="Metric" value="metric" />
+        <Picker.Item label="Imperial" value="imperial" />
       </Picker>
       <Text style={styles.text}>City</Text>
       <TextInput

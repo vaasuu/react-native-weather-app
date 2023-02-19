@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
 
-const Wind = ({ speed, direction }) => {
+const Wind = ({ speed, direction, unit }) => {
   const styles = StyleSheet.create({
     windDirectionIcon: {
       fontSize: 50,
@@ -24,7 +24,9 @@ const Wind = ({ speed, direction }) => {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.text}>Wind speed: {speed} m/s</Text>
+        <Text style={styles.text}>
+          Wind: {speed} {unit}
+        </Text>
         <Text style={styles.text}>Wind direction: {direction} °</Text>
         <Text style={styles.windDirectionIcon}>↓</Text>
       </View>

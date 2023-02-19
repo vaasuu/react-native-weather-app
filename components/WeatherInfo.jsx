@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import WeatherIcon from "./WeatherIcon";
 import Wind from "./Wind";
 
-const WeatherInfo = ({ weatherData }) => {
+const WeatherInfo = ({ weatherData, units }) => {
   console.log(weatherData);
 
   const main = weatherData?.weather[0]?.main;
@@ -15,6 +15,9 @@ const WeatherInfo = ({ weatherData }) => {
   const temp_min = weatherData?.main?.temp_min;
   const speed = weatherData?.wind?.speed;
   const direction = weatherData?.wind?.deg;
+
+  const temp_unit = units === "metric" ? "°C" : "°F";
+  const speed_unit = units === "metric" ? "m/s" : "mph";
 
   return (
     <>
@@ -29,13 +32,21 @@ const WeatherInfo = ({ weatherData }) => {
           </View>
           <View style={{ flex: 1, flexDirection: "column" }}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.text}>{temp} °C</Text>
-              <Text style={styles.text}>Feels like: {feels_like} °C</Text>
-              <Text style={styles.text}>Max: {temp_max} °C</Text>
-              <Text style={styles.text}>Min: {temp_min} °C</Text>
+              <Text style={styles.text}>
+                {temp} {temp_unit}
+              </Text>
+              <Text style={styles.text}>
+                Feels like: {feels_like} {temp_unit}
+              </Text>
+              <Text style={styles.text}>
+                Max: {temp_max} {temp_unit}
+              </Text>
+              <Text style={styles.text}>
+                Min: {temp_min} {temp_unit}
+              </Text>
             </View>
             <View style={{ flex: 1 }}>
-              <Wind speed={speed} direction={direction} />
+              <Wind speed={speed} direction={direction} unit={speed_unit} />
             </View>
           </View>
         </View>

@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, Button, FlatList, StyleSheet, Alert } from "react-native";
 import WeatherListItem from "./WeatherListItem";
+import myDataContext from "../MyDataContext";
 
 const API_KEY = "KEY_HERE";
 const URL = `https://api.openweathermap.org/data/2.5/forecast?q=Tampere&appid=${API_KEY}&units=metric`;
 
-const WeatherForecastScreen = ({ navigation }) => {
+const WeatherForecastScreen = () => {
+  const { apikey, units, city } = useContext(myDataContext);
   const [error, setError] = useState(null);
   const [weatherJson, setWeatherJson] = useState(null);
 
   const fetchWeather = async () => {
+    const URL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apikey}&units=${units}`;
     const response = await fetch(URL);
     const json = await response.json();
     if (response.ok) {
@@ -44,7 +47,7 @@ const WeatherForecastScreen = ({ navigation }) => {
 
   useEffect(() => {
     fetchWeather();
-  }, []);
+  }, [apikey, units, city]);
 
   return (
     <View>

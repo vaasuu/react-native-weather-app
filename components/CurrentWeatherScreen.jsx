@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { Alert, SafeAreaView, View, Button, Text } from "react-native";
+import {
+  Alert,
+  SafeAreaView,
+  View,
+  Button,
+  Text,
+  StyleSheet,
+} from "react-native";
 import WeatherInfo from "./WeatherInfo";
 import Header from "./Header";
-import Inputs from "./Inputs";
 import * as Location from "expo-location";
+import myDataContext from "../MyDataContext";
 
 // Weather app with 3 sections
-const CurrentWeatherScreen = ({ navigation }) => {
+const CurrentWeatherScreen = () => {
   const [error, setError] = useState(null);
   const [weatherJson, setWeatherJson] = useState(null);
+  const { apikey, units, city } = React.useContext(myDataContext);
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -21,18 +29,18 @@ const CurrentWeatherScreen = ({ navigation }) => {
     return location;
   };
 
-  const fetchWeatherCurrentLocationHandler = async (apikey) => {
+  const fetchWeatherCurrentLocationHandler = async () => {
     // Get current location
     const location = await getLocation();
     const lat = location.coords.latitude;
     const lon = location.coords.longitude;
 
-    const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${apikey}`;
-    fetchWeatherHandler(url, apikey);
+    const url = `https://api.openweathermap.org/data/2.5/weather?units=${units}&lat=${lat}&lon=${lon}&appid=${apikey}`;
+    fetchWeatherHandler(url);
   };
 
-  const fetchWeatherByCityHandler = async (city, apikey) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city}&appid=${apikey}`;
+  const fetchWeatherByCityHandler = async (city) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?units=${units}&q=${city}&appid=${apikey}`;
     fetchWeatherHandler(url, apikey);
   };
 
@@ -67,20 +75,30 @@ const CurrentWeatherScreen = ({ navigation }) => {
         <>
           <Header cityName={weatherJson?.name} style={{ flex: 1 }} />
           <View style={{ flex: 2 }}>
-            <WeatherInfo weatherData={weatherJson} />
+            <WeatherInfo weatherData={weatherJson} units={units} />
           </View>
         </>
       )}
       <View style={{ flex: 1 }}>
-        <Inputs
-          fetchWeatherHandler={fetchWeatherByCityHandler}
-          fetchWeatherCurrentLocationHandler={
-            fetchWeatherCurrentLocationHandler
-          }
+        <Button
+          style={styles.button}
+          title={`Get Weather for ${city}`}
+          onPress={() => fetchWeatherByCityHandler(city)}
+        />
+        <Button
+          style={styles.button}
+          title="Get Weather for current location"
+          onPress={() => fetchWeatherCurrentLocationHandler()}
         />
       </View>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    margin: 10,
+  },
+});
 
 export default CurrentWeatherScreen;

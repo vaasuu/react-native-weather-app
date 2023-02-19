@@ -18,6 +18,17 @@ const WeatherForecastScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const fetchWeather = async () => {
+    if (!apikey) {
+      const errorMsg = "API key missing! Set it in the settings tab.";
+      Alert.alert("Error fetching weather!", errorMsg, [{ text: "OK" }]);
+      return;
+    }
+    if (!city) {
+      const errorMsg = "City missing! Set it in the settings tab.";
+      Alert.alert("Error fetching weather!", errorMsg, [{ text: "OK" }]);
+      return;
+    }
+
     setLoading(true);
     const URL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apikey}&units=${units}`;
     const response = await fetch(URL);
@@ -62,7 +73,7 @@ const WeatherForecastScreen = () => {
     <View>
       {loading && <ActivityIndicator size="large" style={styles.loading} />}
       <Text style={styles.cityHeader}>{weatherJson?.city?.name}</Text>
-      {(apikey.length <= 0 || city.length <= 0) && (
+      {(!apikey || !city) && (
         <Text style={styles.error}>
           API key or city missing! Set them in the settings tab.
         </Text>

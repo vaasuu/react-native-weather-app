@@ -90,7 +90,7 @@ const CurrentWeatherScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {loading && <ActivityIndicator size="large" style={styles.loading} />}
-      {apikey.length <= 0 && (
+      {!apikey && (
         <Text style={styles.error}>
           API key missing! Set it in the settings tab.{" "}
         </Text>

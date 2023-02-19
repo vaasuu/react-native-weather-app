@@ -90,6 +90,11 @@ const CurrentWeatherScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {loading && <ActivityIndicator size="large" style={styles.loading} />}
+      {apikey.length <= 0 && (
+        <Text style={styles.error}>
+          API key missing! Set it in the settings tab.{" "}
+        </Text>
+      )}
       {weatherJson && (
         <>
           <Header cityName={weatherJson?.name} style={{ flex: 1 }} />
@@ -99,11 +104,13 @@ const CurrentWeatherScreen = () => {
         </>
       )}
       <View style={{ flex: 1 }}>
-        <Button
-          style={styles.button}
-          title={`Get Weather for ${city}`}
-          onPress={() => fetchWeatherByCityHandler(city)}
-        />
+        {city && (
+          <Button
+            style={styles.button}
+            title={`Get Weather for ${city}`}
+            onPress={() => fetchWeatherByCityHandler(city)}
+          />
+        )}
         <Button
           style={styles.button}
           title="Get Weather for current location"
@@ -115,8 +122,21 @@ const CurrentWeatherScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "lightgray",
+  },
   button: {
     margin: 10,
+  },
+  error: {
+    color: "red",
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center",
+    marginVertical: 10,
+    paddingHorizontal: 10,
   },
   loading: {
     flex: 1,

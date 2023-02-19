@@ -62,6 +62,11 @@ const WeatherForecastScreen = () => {
     <View>
       {loading && <ActivityIndicator size="large" style={styles.loading} />}
       <Text style={styles.cityHeader}>{weatherJson?.city?.name}</Text>
+      {(apikey.length <= 0 || city.length <= 0) && (
+        <Text style={styles.error}>
+          API key or city missing! Set them in the settings tab.
+        </Text>
+      )}
       {weatherJson && (
         <FlatList
           data={weatherJson.list}
@@ -84,6 +89,13 @@ export default WeatherForecastScreen;
 
 const styles = StyleSheet.create({
   cityHeader: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginVertical: 10,
+    paddingHorizontal: 10,
+  },
+  error: {
+    color: "red",
     fontSize: 20,
     fontWeight: "bold",
     marginVertical: 10,

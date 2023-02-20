@@ -16,8 +16,19 @@ const WeatherInfo = ({ weatherData, units }) => {
   const speed = weatherData?.wind?.speed;
   const direction = weatherData?.wind?.deg;
 
-  const temp_unit = units === "metric" ? "°C" : "°F";
-  const speed_unit = units === "metric" ? "m/s" : "mph";
+  let temp_unit = "";
+  let speed_unit = "";
+
+  if (units === "metric") {
+    temp_unit = "°C";
+    speed_unit = "m/s";
+  } else if (units === "imperial") {
+    temp_unit = "°F";
+    speed_unit = "mph";
+  } else {
+    temp_unit = "K";
+    speed_unit = "m/s";
+  }
 
   return (
     <>

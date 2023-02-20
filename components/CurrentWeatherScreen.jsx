@@ -88,7 +88,7 @@ const CurrentWeatherScreen = () => {
   }, [apikey, units, city]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       {loading && <ActivityIndicator size="large" style={styles.loading} />}
       {!apikey && (
         <Text style={styles.error}>
@@ -122,6 +122,11 @@ const CurrentWeatherScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "lightgray",
+  },
   button: {
     margin: 10,
   },

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Platform,
   Alert,
   SafeAreaView,
   View,
@@ -27,7 +28,12 @@ const CurrentWeatherScreen = () => {
       return;
     }
 
-    let location = await Location.getCurrentPositionAsync({});
+    let location = await Location.getCurrentPositionAsync({
+      accuracy:
+        Platform.OS === "android"
+          ? Location.Accuracy.Low
+          : Location.Accuracy.Lowest,
+    });
     return location;
   };
 

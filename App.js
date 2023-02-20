@@ -27,18 +27,18 @@ const App = () => {
               let iconName;
 
               if (route.name === "Current Weather") {
-                iconName = "cloud-outline";
+                focused ? (iconName = "cloud") : (iconName = "cloud-outline");
               } else if (route.name === "Forecast") {
-                iconName = "calendar-outline";
+                focused
+                  ? (iconName = "calendar")
+                  : (iconName = "calendar-outline");
               } else if (route.name === "Settings") {
-                iconName = "cog-outline";
+                focused ? (iconName = "cog") : (iconName = "cog-outline");
               }
 
               // You can return any component that you like here!
               return <Ionicons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: "blue",
-            tabBarInactiveTintColor: "gray",
           })}
         >
           <Tab.Screen name="Current Weather" component={CurrentWeatherScreen} />

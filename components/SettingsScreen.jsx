@@ -12,7 +12,6 @@ const SettingsScreen = () => {
 
   return (
     <View>
-      <Text style={styles.title}>Settings Screen</Text>
       <Text style={styles.text}>OpenWeatherMap API Key</Text>
       <TextInput
         style={styles.input}

@@ -25,6 +25,7 @@ const SettingsScreen = () => {
         selectedValue={enteredUnits}
         onValueChange={(unit) => setEnteredUnits(unit)}
       >
+        <Picker.Item label="SI" value="si" />
         <Picker.Item label="Metric" value="metric" />
         <Picker.Item label="Imperial" value="imperial" />
       </Picker>

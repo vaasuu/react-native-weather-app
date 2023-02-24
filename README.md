@@ -6,7 +6,7 @@ This is a simple weather app built with React Native. It uses the [OpenWeatherMa
 
 Clone the repository and run `npm install` to install the dependencies.
 
-To run the app, you need to install Expo Go on your phone and then run `expo start` in the project directory.
+To run the app, you need to install Expo Go on your phone and then run `npm run start` in the project directory.
 
 ## Features
 
